@@ -16,7 +16,9 @@ When activated, the robot will initialize an average image and wait to detect mo
 See main.py for further comments.
 
 To run with display: $python main.py 1
+
 The program starts a thread for the turret which is continually updated with target coordinates by the OpenCV frame processing. A separate thread handles terminal keyboard input:
+
 - q = quit
 - ' ' = reset
 - 1 = start motion detect
@@ -29,5 +31,6 @@ The program starts a thread for the turret which is continually updated with tar
 ---
 
 The working example was built on RaspberryPi with Raspian and OpenCV(python) 2.4, using GPIO pins connected to a servo driver and servos from Adafruit. Tutorial here: https://learn.adafruit.com/adafruit-16-channel-servo-driver-with-raspberry-pi
+
 As of 5/1/2014, I believe a BeagleBone Black would be preferable platform due to faster CPU and on-board PWM outputs (meaning no separate servo driver needed).
 
