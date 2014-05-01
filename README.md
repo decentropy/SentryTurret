@@ -4,7 +4,6 @@ This project licensed under GNU GENERAL PUBLIC LICENSE
 https://www.gnu.org/licenses/gpl.txt
 
 Video of a working example: 
-
 <a href="http://www.youtube.com/watch?v=bgmDVvE1pLw
 " target="_blank"><img src="http://img.youtube.com/vi/bgmDVvE1pLw/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
