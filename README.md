@@ -3,13 +3,14 @@
 This project licensed under GNU GENERAL PUBLIC LICENSE
 https://www.gnu.org/licenses/gpl.txt
 
-A sentry turret style robot which will detect motion, then track and fire at the object. The robot's "turret" is rotated by two servos (X/pan axis and Y/tilt axis). The "eye"(webcam) and "gun" of the robot should be mounted on the turret. The third servo is attached to pull the trigger when the target centered.
-
 Video of a working example: 
 
 <a href="http://www.youtube.com/watch?v=bgmDVvE1pLw
 " target="_blank"><img src="http://img.youtube.com/vi/bgmDVvE1pLw/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
+A sentry turret style robot which will detect motion, then track and fire at the object. The robot's "turret" is rotated by two servos (X/pan axis and Y/tilt axis). The "eye"(webcam) and "gun" of the robot should be mounted on the turret. The third servo is attached to pull the trigger when the target centered.
+
 
 When activated, the robot will initialize an average image and wait to detect motion above a threshold size. It will target the mean HSV of a moving object and begin blob detection to center the camera's view (using turret servos) on the object. When the object is centered, it will fire by pulling the trigger servo. 
 
