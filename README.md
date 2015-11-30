@@ -5,9 +5,9 @@ https://www.gnu.org/licenses/gpl.txt
 
 Video of a working example: 
 
-<a href="http://www.youtube.com/watch?v=bgmDVvE1pLw
+<!--a href="http://www.youtube.com/watch?v=bgmDVvE1pLw
 " target="_blank"><img src="http://img.youtube.com/vi/bgmDVvE1pLw/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a-->
 
 A sentry turret style robot which will detect motion, then track and fire at the object. The robot's "turret" is rotated by two servos (X/pan axis and Y/tilt axis). The "eye"(webcam) and "gun" of the robot should be mounted on the turret. The third servo is attached to pull the trigger when the target centered.
 
