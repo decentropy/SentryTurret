@@ -111,12 +111,20 @@ E.g. To enable serial port, and connect bluetooth to your phone
 $ sdptool add SP
 $ sudo rfcomm bind rfcomm0 XX:XX:XX:XX:XX:XX 1 (<-your address here)
 ~~~
-Tip: Bluetooth and stdin may need reset before running bot again.
+
+## Issues and Workarounds
+
+You see a lot of output on start which may be ignored.
+
+Bluetooth may need reset before restarting bot.
 ~~~
 $ sudo hciconfig hci0 reset
-$ stty sane
 ~~~
 
+*stdin may stop showing what you type. reset with:
+~~~
+$ stty sane
+~~~
 
 ## Contribute
 
