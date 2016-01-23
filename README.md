@@ -2,6 +2,8 @@
 
 The purpose of this project is to create a cheap autonomous turret, capable of detecting motion and targetting objects.
 
+![Pew Pew](https://raw.githubusercontent.com/steve-vincent/SentryTurret/master/robot.png "Working Example")
+
 ## Overview
 
 These instructions were written for constructing the robot with RPi2+RaspiCam+servos, but **you may try it out on a desktop with a webcam** (after installing required python packages).
@@ -15,7 +17,7 @@ These instructions were written for constructing the robot with RPi2+RaspiCam+se
         - Get last frame from Camera()
         - If tracking target:
             - Find center of target in frame
-            - Give Turret() new 
+            - Give Turret() new target coords
         - Else if searching for target, do one of:
             - Detect face mode
             - Detect motion by color
