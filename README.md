@@ -30,7 +30,7 @@ These instructions were written for constructing the robot with RPi2+RaspiCam+se
 
 ## Install
 
-See [CONFIG.INI](https://github.com/steve-vincent/SentryTurret/blob/master/bot/config.ini)  for settings
+See [CONFIG.INI](https://github.com/steve-vincent/SentryTurret/blob/master/config.ini)  for settings
 
 ### Python Package Requirements
 ~~~
@@ -47,7 +47,7 @@ pyttsx (for speech)
 ~~~
 
 **Installing dlib**
-While "sudo apt-get install" works for opencv, dlib (used for object tracking) requires compilation. Here are basic steps to do that:
+While "sudo apt-get install" works for opencv, [dlib](http://dlib.net) (used for object tracking) requires compilation. Here are basic steps to do that:
 ~~~
 sudo apt-get install cmake
 Install boost from: http://sourceforge.net/projects/boost
@@ -82,7 +82,7 @@ For using raspicam with opencv, add bcm2835-v4l2 with `sudo modprobe bcm2835-v4l
     - upsidedown: how you mount the camera.
     - width,height: camera capture dimensions
     - scaledown: for faster processing/framerate
-    - display: much slower, but will display robot frames
+    - display: on or off to display robot view. (Slower)
 
 **Turret/Servos:**
 Here is a [good tutorial](https://learn.adafruit.com/adafruit-16-channel-servo-driver-with-raspberry-pi) on connecting servos with your RPi. (Also read about [setting I2C permissions](http://www.raspberrypi.org/forums/viewtopic.php?p=238003#p238003)).
@@ -106,10 +106,10 @@ Send commands by either: keyboard (direct USB) or bluetooth (USB dongle + androi
 - CONFIG.INI settings: 
     - usebluetooth: on or off (turn off if you don't use)
 
-E.g. To enable serial port, and connect your phone
+E.g. To enable serial port, and connect bluetooth to your phone
 ~~~
 $ sdptool add SP
-$ sudo rfcomm bind rfcomm0 XX:XX:XX:XX:XX:XX 1
+$ sudo rfcomm bind rfcomm0 XX:XX:XX:XX:XX:XX 1 (<-your address here)
 ~~~
 Tip: Bluetooth and stdin may need reset before running bot again.
 ~~~
