@@ -78,7 +78,7 @@ See [HELP.TXT](https://github.com/steve-vincent/SentryTurret/blob/master/help.tx
 
 **Camera:**
 For using raspicam with opencv, add bcm2835-v4l2 with `sudo modprobe bcm2835-v4l2` (read [here](http://raspberrypi.stackexchange.com/questions/17068/using-opencv-with-raspicam-and-python)  and [here](https://www.raspberrypi.org/forums/viewtopic.php?f=43&t=94381)).
-- Config settings: 
+- CONFIG.INI settings: 
     - upsidedown: how you mount the camera.
     - width,height: camera capture dimensions
     - scaledown: for faster processing/framerate
@@ -86,7 +86,7 @@ For using raspicam with opencv, add bcm2835-v4l2 with `sudo modprobe bcm2835-v4l
 
 **Turret/Servos:**
 Here is a [good tutorial](https://learn.adafruit.com/adafruit-16-channel-servo-driver-with-raspberry-pi) on connecting servos with your RPi. (Also read about [setting I2C permissions](http://www.raspberrypi.org/forums/viewtopic.php?p=238003#p238003)).
-- Config settings: 
+- CONFIG.INI settings: 
     - panchannel/tiltchannel/triggerchannel: channels on servo driver for each servo
     - *TODO: These other settings need some clean up and auto-calibration*
         - stepsleep: seconds per microstep
@@ -98,7 +98,7 @@ Here is a [good tutorial](https://learn.adafruit.com/adafruit-16-channel-servo-d
 
 **Speech:** (Optional)
 If you connect a speaker, robot will speak modes and actions. Make sure volume is up the first time: `$ amixer sset PCM,0 100%`. 
-- Config settings: 
+- CONFIG.INI settings: 
     - quiet: on or off (turn off if you don't have speaker)
 
 **Controller :** 
