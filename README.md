@@ -88,11 +88,11 @@ For using raspicam with opencv, add bcm2835-v4l2 with `sudo modprobe bcm2835-v4l
 Here is a [good tutorial](https://learn.adafruit.com/adafruit-16-channel-servo-driver-with-raspberry-pi) on connecting servos with your RPi. (Also read about [setting I2C permissions](http://www.raspberrypi.org/forums/viewtopic.php?p=238003#p238003)).
 - CONFIG.INI settings: 
     - panchannel/tiltchannel/triggerchannel: channels on servo driver for each servo
-    - *TODO: These other settings need some clean up and auto-calibration*
+    - fireposition: how far back to pull trigger
+    - firesensitivity: how centered before firing? (higher is more "trigger happy")
+    - *TODO: These other settings need some clean up or auto-calibration. Tweak if needed.*
         - stepsleep: seconds per microstep
-        - pixelsperpulse: you have to measure this per rotation/camera, e.g. pixels between same point after turret rotates 1.0 pulse.
-        - fireposition: how far back to pull trigger
-        - firesensitivity: how centered needs to be to fire?
+        - pixelsperpulse: you have to manually measure & set this per rotation/camera, (pixels between same point after turret rotates 1.0 pulse.)
         - fps: how fast turret expects coordinates
 
 
