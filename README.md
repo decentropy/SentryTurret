@@ -121,7 +121,7 @@ Bluetooth may need reset before restarting bot.
 $ sudo hciconfig hci0 reset
 ~~~
 
-*stdin may stop showing what you type. reset with:
+Stdin may stop showing what you type after running. Reset with:
 ~~~
 $ stty sane
 ~~~
