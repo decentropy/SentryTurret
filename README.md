@@ -77,7 +77,7 @@ See [HELP.TXT](https://github.com/steve-vincent/SentryTurret/blob/master/help.tx
 ## Setup Tips
 
 **Camera:**
-For using raspicam with opencv, [add bcm2835-v4l2 to /etc/modules](http://raspberrypi.stackexchange.com/questions/17068/using-opencv-with-raspicam-and-python) ([more](https://www.raspberrypi.org/forums/viewtopic.php?f=43&t=94381)).
+For using raspicam with opencv, add bcm2835-v4l2 with `sudo modprobe bcm2835-v4l2` (read [here](http://raspberrypi.stackexchange.com/questions/17068/using-opencv-with-raspicam-and-python)  and [here](https://www.raspberrypi.org/forums/viewtopic.php?f=43&t=94381)).
 - Config settings: 
     - upsidedown: how you mount the camera.
     - width,height: camera capture dimensions
