@@ -1,0 +1,26 @@
+    '?' or 'h' - this menu
+    'q' - quit (exit 0)
+    'r' - restart (exit 1)
+--- Targeting ---
+    ' ' - reset
+    't' - target color at center
+    '1' - track face on detection
+    '2' - track color on motion
+    '3' - track object on motion
+--- Controls ---
+    'j' - joke/taunt
+    'g' - fire
+--- Settings ---
+    'p' - toggle arm/safety
+    'n' - toggle speech/quiet
+    'i' - toggle frames/second output
+    'w' - pause display
+    '+' - volume up
+    '-' - volume down
+    'y' - restart speech (if crashes)
+--- Tolerance ---
+    'l/m' - more/less trigger happy
+    'a/z' - +/- size threshold color motion
+    's/x' - +/- size threshold object motion
+--- Turret/Servo ---
+You may click window to position servos.

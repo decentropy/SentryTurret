@@ -2,14 +2,34 @@
 
 import threading
 import bluetooth
-import getch
+#import getch
 
+import fcntl, os, sys, termios
+
+def getch():
+    fd = sys.stdin.fileno()     
+    oldattr = termios.tcgetattr(fd)
+    newattr = termios.tcgetattr(fd)
+    newattr[3] = newattr[3] & ~termios.ICANON & ~termios.ECHO
+    termios.tcsetattr(fd, termios.TCSANOW, newattr)     
+    oldflags = fcntl.fcntl(fd, fcntl.F_GETFL)
+    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK)     
+    try:
+        while True:
+            try:
+                c = sys.stdin.read(1)
+            except IOError:
+                pass
+            else:
+                return c
+    finally:
+        termios.tcsetattr(fd, termios.TCSAFLUSH, oldattr)
+        fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
 
 class Listener():
 
     def __init__(self, cfg):
         self.ready = threading.Event()
-        self.ready.set()
         self.cmdsent = threading.Event()
         self.threadquit = threading.Event()
         self.cmd = ""
@@ -24,6 +44,7 @@ class Listener():
         self.keyboardthread = threading.Thread(target=self.keyboardlisten)
         self.keyboardthread.daemon=True
         self.keyboardthread.start()
+        self.ready.set()
 
     def reset(self) :
         self.cmdsent.clear()
@@ -39,8 +60,7 @@ class Listener():
     def keyboardlisten(self) : 
         print "Keyboard: listening"
         while self.ready.wait() and not self.threadquit.isSet(): 
-            ch = getch.getch()
-            self.gotchar(ch)
+            self.gotchar(getch()) #getch.getch())
         print "Keyboard: done"
 
     def bluetoothlisten(self) :

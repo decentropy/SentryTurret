@@ -1,8 +1,11 @@
 #!/usr/bin/python
 
-from driver.Adafruit_PWM_Servo_Driver import PWM
 import threading
 from time import sleep
+try:
+    from driver.Adafruit_PWM_Servo_Driver import PWM
+except ImportError:
+    from driver.monkeypatch import PWM
 
 # ===========================================================================
 # Wrapper for your servo driver goes here.
@@ -60,8 +63,8 @@ class Targetting(threading.Thread) :
         self.center = [float(cfg['turret']['centerx']), float(cfg['turret']['centery'])] 
         self.fps = int(cfg['camera']['fps'])
         self.stepsleep = float(cfg['turret']['stepsleep'])
-        self.firesensitivity = float(cfg['turret']['firesensitivity'])
-        self.triggerwait = float(cfg['turret']['reloadseconds'])
+        self.firesensitivity = float(cfg['tolerance']['firesensitivity'])
+        self.triggerwait = float(cfg['tolerance']['reloadseconds'])
         self.pixelPulseRatio = float(cfg['turret']['pixelsperpulse'])
         self.camW = int(cfg['camera']['width'])
         self.camH = int(cfg['camera']['height'])

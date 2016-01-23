@@ -1,37 +1,126 @@
 # SentryTurret
 
+The purpose of this project is to create a cheap autonomous turret, capable of detecting motion and targetting objects.
+
+## Overview
+
+These instructions were written for constructing the robot with RPi2+RaspiCam+servos, but **you may try it out on a desktop with a webcam** (after installing required python packages).
+
+**The basic structure of the program follows:**
+- Main()
+    - Spawn Camera() thread to fetch camera frames
+    - Spawn Turret() thread to listen and move servos. If centered and armed, will fire.
+    - Spawn Controller() thread to listen for input (keyboard or bluetooth)
+    - Loop:
+        - Get last frame from Camera()
+        - If tracking target:
+            - Find center of target in frame
+            - Give Turret() new 
+        - Else if searching for target, do one of:
+            - Detect face mode
+            - Detect motion by color
+            - Detect motion by object
+        - If input, do command. E.g:
+            - Quit
+            - Targetting mode
+            - Adjust setting
+            - etc.
+
+## Install
+
+See [CONFIG.INI](https://github.com/steve-vincent/SentryTurret/blob/master/bot/config.ini)  for settings
+
+### Python Package Requirements
+~~~
+python-dev
+libopencv-dev
+python-opencv
+open-cv
+dlib (see note below)
+configobj
+python-smbus
+webcolors
+bluez python-bluetooth python-gobject  (for bluetooth)
+pyttsx (for speech)
+~~~
+
+**Installing dlib**
+While "sudo apt-get install" works for opencv, dlib (used for object tracking) requires compilation. Here are basic steps to do that:
+~~~
+sudo apt-get install cmake
+Install boost from: http://sourceforge.net/projects/boost
+sudo apt-get install libboost-python-dev
+wget http://dlib.net/files/dlib-18.18.tar.bz2
+tar jxf dlib-18.18.tar.bz2
+cd dlib*
+sudo python setup.py install
+pip install dlib
+~~~
+
+### Hardware To Construct Robot
+- Raspberry Pi 2 + power supply
+- RaspiCam
+- PWM Servo Driver + power supply
+- 3 standard servos
+- Optional: Speaker (for speech feedback)
+- Optional: Bluetooth USB adapter (for bluetooth control)
+- Robot frame: camera mounted direction of gun, with servos for trigger and pan/tilt rotation
+
+## Usage
+
+`$ python main.py`
+
+See [HELP.TXT](https://github.com/steve-vincent/SentryTurret/blob/master/help.txt)  for commands
+
+## Setup Tips
+
+**Camera:**
+For using raspicam with opencv, [add bcm2835-v4l2 to /etc/modules](http://raspberrypi.stackexchange.com/questions/17068/using-opencv-with-raspicam-and-python) ([more](https://www.raspberrypi.org/forums/viewtopic.php?f=43&t=94381)).
+- Config settings: 
+    - upsidedown: how you mount the camera.
+    - width,height: camera capture dimensions
+    - scaledown: for faster processing/framerate
+    - display: much slower, but will display robot frames
+
+**Turret/Servos:**
+Here is a [good tutorial](https://learn.adafruit.com/adafruit-16-channel-servo-driver-with-raspberry-pi) on connecting servos with your RPi. (Also read about [setting I2C permissions](http://www.raspberrypi.org/forums/viewtopic.php?p=238003#p238003)).
+- Config settings: 
+    - panchannel/tiltchannel/triggerchannel: channels on servo driver for each servo
+    - *TODO: These other settings need some clean up and auto-calibration*
+        - stepsleep: seconds per microstep
+        - pixelsperpulse: you have to measure this per rotation/camera, e.g. pixels between same point after turret rotates 1.0 pulse.
+        - fireposition: how far back to pull trigger
+        - firesensitivity: how centered needs to be to fire?
+        - fps: how fast turret expects coordinates
+
+
+**Speech:** (Optional)
+If you connect a speaker, robot will speak modes and actions. Make sure volume is up the first time: `$ amixer sset PCM,0 100%`. 
+- Config settings: 
+    - quiet: on or off (turn off if you don't have speaker)
+
+**Controller :** 
+Send commands by either: keyboard (direct USB) or bluetooth (USB dongle + android app, such as [BlueMCU](https://play.google.com/store/apps/details?id=com.bluetooth.BlueMCU&hl=en)). Read about [bluetooth setup](https://github.com/metachris/android-bluetooth-spp) and [helpful commands](https://www.raspberrypi.org/forums/viewtopic.php?p=521067).
+- Config settings: 
+    - usebluetooth: on or off (turn off if you don't use)
+
+E.g. To enable serial port, and connect your phone
+~~~
+$ sdptool add SP
+$ sudo rfcomm bind rfcomm0 XX:XX:XX:XX:XX:XX 1
+~~~
+Tip: Bluetooth and stdin may need reset before running bot again.
+~~~
+$ sudo hciconfig hci0 reset
+$ stty sane
+~~~
+
+
+## Contribute
+
+Contributions are welcome to improve accuracy and movement of the robot!
+
+## License
+
 This project licensed under GNU GENERAL PUBLIC LICENSE
 https://www.gnu.org/licenses/gpl.txt
-
-Video of a working example: 
-
-<a href="http://www.youtube.com/watch?v=bgmDVvE1pLw
-" target="_blank"><img src="http://img.youtube.com/vi/bgmDVvE1pLw/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
-
-A sentry turret style robot which will detect motion, then track and fire at the object. The robot's "turret" is rotated by two servos (X/pan axis and Y/tilt axis). The "eye"(webcam) and "gun" of the robot should be mounted on the turret. The third servo is attached to pull the trigger when the target centered.
-
-
-When activated, the robot will initialize an average image and wait to detect motion above a threshold size. It will target the mean HSV of a moving object and begin blob detection to center the camera's view (using turret servos) on the object. When the object is centered, it will fire by pulling the trigger servo. 
-
-See main.py for further comments.
-
-To run with display: $python main.py 1
-
-The program starts a thread for the turret which is continually updated with target coordinates by the OpenCV frame processing. A separate thread handles terminal keyboard input:
-
-- q = quit
-- ' ' = reset
-- 1 = start motion detect
-- 2 = sample center for target
-- f/v = +/- threshhold area
-- a,s,d/z,x,c = +/- H,S,V
-- p = toggle armed
-- l/m = +/- target sensitivity
-
----
-
-The working example was built on RaspberryPi with Raspian and OpenCV(python) 2.4, using GPIO pins connected to a servo driver and servos from Adafruit. Tutorial here: https://learn.adafruit.com/adafruit-16-channel-servo-driver-with-raspberry-pi
-
-As of 5/1/2014, I believe a BeagleBone Black would be preferable platform due to faster CPU and on-board PWM outputs (meaning no separate servo driver needed).
-
