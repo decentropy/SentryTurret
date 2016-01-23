@@ -103,7 +103,7 @@ If you connect a speaker, robot will speak modes and actions. Make sure volume i
 
 **Controller :** 
 Send commands by either: keyboard (direct USB) or bluetooth (USB dongle + android app, such as [BlueMCU](https://play.google.com/store/apps/details?id=com.bluetooth.BlueMCU&hl=en)). Read about [bluetooth setup](https://github.com/metachris/android-bluetooth-spp) and [helpful commands](https://www.raspberrypi.org/forums/viewtopic.php?p=521067).
-- Config settings: 
+- CONFIG.INI settings: 
     - usebluetooth: on or off (turn off if you don't use)
 
 E.g. To enable serial port, and connect your phone
